@@ -134,12 +134,6 @@ jobs:
         cp android-kernel/out/arch/arm64/boot/${{ env.KERNEL_FILE }} AnyKernel3/
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
-    - name: Upload AnyKernel3
-      uses: actions/upload-artifact@v3
-      with:
-        name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        path: kernel_workspace/AnyKernel3/*
-        
     - name: Create Release and Upload Release Asset
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -150,5 +144,11 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          kernel_workspace/AnyKernel3/
-          LICENSE 
+          kernel_workspace/AnyKernel3/*
+
+    - name: Upload AnyKernel3
+      uses: actions/upload-artifact@v3
+      with:
+        name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        path: kernel_workspace/AnyKernel3/*
+
