@@ -150,5 +150,5 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
+          kernel_workspace/AnyKernel3/
           LICENSE 
