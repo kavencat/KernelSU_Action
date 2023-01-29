@@ -135,11 +135,16 @@ jobs:
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
     - name: Upload AnyKernel3
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
-        
+ 
+    - name: zip AnyKernel3
+      run: |
+        cd kernel_workspace/AnyKernel3/
+        zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
+ 
     - name: Upload to Release...
       uses: ncipollo/release-action@v1.8.0
       with:
