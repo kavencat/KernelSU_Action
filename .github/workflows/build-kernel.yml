@@ -152,5 +152,5 @@ jobs:
         artifacts: kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
         name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         tag: ${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        body: 'add'
+        body: 'add KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}'
         token: ${{ secrets.GITHUB_TOKEN }}
