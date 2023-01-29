@@ -147,7 +147,7 @@ jobs:
         ls
  
     - name: Upload to Release...
-      uses: ncipollo/release-action@v1.8.0
+      uses: ncipollo/release-action@v1.12.0
       with:
         artifacts: kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
         name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
