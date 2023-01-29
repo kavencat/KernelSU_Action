@@ -142,13 +142,14 @@ jobs:
  
     - name: zip AnyKernel3
       run: |
-        cd kernel_workspace/AnyKernel3/
+        cd kernel_workspace/
         zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
+        ls
  
     - name: Upload to Release...
       uses: ncipollo/release-action@v1.8.0
       with:
-        artifacts: kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
+        artifacts: kernel_workspace/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
         name: AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         tag: ${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         body: 'add'
