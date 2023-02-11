@@ -118,6 +118,7 @@ jobs:
         tools/unpack_bootimg.py --boot_img boot-source.img
         cp android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/${{ env.KERNEL_FILE }} out/kernel
         tools/mkbootimg.py ${{ env.FORMAT_MKBOOTING }} -o boot.img
+        cp boot.img boot-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
 
     - name: Upload ${{ env.KERNEL_FILE }}
       uses: actions/upload-artifact@v3.1.2
@@ -163,4 +164,4 @@ jobs:
         prerelease: false
         files: |
           kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
-          kernel_workspace/boot.img
+          kernel_workspace/boot-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
