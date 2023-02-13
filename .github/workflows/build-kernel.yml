@@ -178,6 +178,7 @@ jobs:
       run: |
         cd kernel_workspace/AnyKernel3/
         zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
+        cp kernel_workspace/android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo.img kernel_workspace/android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
     
     - name: Create Release and Upload Release Asset
       uses: phuonghuynh/action-gh-release@master
@@ -193,3 +194,4 @@ jobs:
         files: |
           kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
           kernel_workspace/boot-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
+          kernel_workspace/android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
