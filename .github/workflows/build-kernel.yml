@@ -129,6 +129,7 @@ jobs:
             cp android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/${{ env.KERNEL_FILE }} AnyKernel3/
         elif [ ${{ env.CHECK_DTBO_IS_OK }} = true ]; then
             cp android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo.img AnyKernel3/
+            cp android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo.img android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
         fi
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
 
@@ -178,7 +179,6 @@ jobs:
       run: |
         cd kernel_workspace/AnyKernel3/
         zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
-        cp kernel_workspace/android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo.img kernel_workspace/android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/dtbo-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
     
     - name: Create Release and Upload Release Asset
       uses: phuonghuynh/action-gh-release@master
