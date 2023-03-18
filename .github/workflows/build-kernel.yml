@@ -29,6 +29,7 @@ jobs:
         echo "NEED_DTBO=$(cat config.env | grep "NEED_DTBO" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "MAKE_BOOT_IMAGE=$(cat config.env | grep "MAKE_BOOT_IMAGE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "SOURCE_BOOT_IMAGE=$(cat config.env | grep "SOURCE_BOOT_IMAGE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+        echo "KERNEL_VISON=$(cat config.env | grep "KERNEL_VISON" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
 
     - name: Setup build kernel environment
       run: |
@@ -188,7 +189,7 @@ jobs:
       with:
         tag_name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        body: 'add KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}'
+        body: 'build KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }} /n kernel vison ${{ env.KERNEL_VISON }}'
         draft: false
         prerelease: false
         files: |
