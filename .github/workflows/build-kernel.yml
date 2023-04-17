@@ -73,7 +73,7 @@ jobs:
             echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
             echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV
         fi
-  
+
     - name: Setup KernelSU
       if: env.USE_KERNELSU == 'true'
       run: |
@@ -108,6 +108,7 @@ jobs:
     - name: Check a kernel output files
       run: |
        cd $GITHUB_WORKSPACE/kernel_workspace
+       ls android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/
        if [ -f android-kernel/out/arch/${{ env.TARGET_ARCH }}/boot/${{ env.KERNEL_FILE }} ]; then
            echo "CHECK_FILE_IS_OK=true" >> $GITHUB_ENV
        else
@@ -150,7 +151,7 @@ jobs:
             echo "Boot image is empty"
             exit 1
         fi
-    
+
     - name: Upload ${{ env.KERNEL_FILE }}
       if: env.CHECK_FILE_IS_OK == 'true'
       uses: actions/upload-artifact@v3.1.2
@@ -183,7 +184,7 @@ jobs:
       run: |
         cd kernel_workspace/AnyKernel3/
         zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
-    
+
     - name: Create Release and Upload Release Asset
       uses: phuonghuynh/action-gh-release@master
       if: startsWith(KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}, 'refs/tags/')
