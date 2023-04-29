@@ -192,7 +192,7 @@ jobs:
       with:
         tag_name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        body: 'build KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }} /n kernel vison ${{ env.KERNEL_VISON }}'
+        body: 'build KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }} kernel vison ${{ env.KERNEL_VISON }}'
         draft: false
         prerelease: false
         files: |
