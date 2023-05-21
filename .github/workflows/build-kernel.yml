@@ -153,8 +153,12 @@ jobs:
         export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
-        make -j$(nproc --all) O=out ARCH=${{ env.TARGET_ARCH }} ${{ env.CUSTOM_CLANG_BUILD_COMMAND }} CC=clang ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_DEFCONFIG }}
-        make -j$(nproc --all) O=out ARCH=${{ env.TARGET_ARCH }} ${{ env.CUSTOM_CLANG_BUILD_COMMAND }} CC=clang ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+        make -j$(nproc --all) CC=clang O=out ARCH=${{ env.TARGET_ARCH }} ${{ env.CUSTOM_CLANG_BUILD_COMMAND }} ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_DEFCONFIG }}
+        if [ ${{ env.USE_CCACHE }} = true ]; then
+            make -j$(nproc --all) CC="ccache clang" O=out ARCH=${{ env.TARGET_ARCH }} ${{ env.CUSTOM_CLANG_BUILD_COMMAND }} ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+        else
+            make -j$(nproc --all) CC=clang O=out ARCH=${{ env.TARGET_ARCH }} ${{ env.CUSTOM_CLANG_BUILD_COMMAND }} ${{ env.BUILD_EXTRA_COMMAND }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+        fi
 
     - name: Check a kernel output files
       run: |
