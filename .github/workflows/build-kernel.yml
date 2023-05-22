@@ -228,7 +228,8 @@ jobs:
       with:
         tag_name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        body: 'build KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }} kernel vison ${{ env.KERNEL_VISON }}'
+        body: '设备代号：$DEVICE
+        KERNEL版本：$KERNEL_VISON'
         draft: false
         prerelease: false
         files: |
