@@ -187,6 +187,7 @@ jobs:
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s ${{ env.KERNELSU_TAG }}
         KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
         echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV
+        echo "KSU_VERSION=$KSU_VERSION" >> $GITHUB_ENV
 
     - name: Setup Configuration for Kernel
       run: |
@@ -336,20 +337,20 @@ jobs:
     - name: zip AnyKernel3
       run: |
         cd kernel_workspace/AnyKernel3/
-        zip -q -r AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
+        zip -q -r AnyKernel3-KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
 
     - name: Create Release and Upload Release Asset
       uses: phuonghuynh/action-gh-release@master
-      if: startsWith(KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}, 'refs/tags/')
+      if: startsWith(KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}, 'refs/tags/')
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        name: KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        body: '设备代号：${{ env.DEVICE }}  KERNEL版本：${{ env.KERNEL_VISON }} clang版本：${{ env.CLANG_VERSION }}'
+        tag_name: KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        body: '设备代号：${{ env.DEVICE }}  KERNEL版本：${{ env.KERNEL_VISON }} clang版本：${{ env.CLANG_VERSION }} KernelSU版本：${{env.KSU_VERSION}}'
         draft: false
         prerelease: false
         files: |
-          kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
-          kernel_workspace/boot-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
-          kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
+          kernel_workspace/AnyKernel3/AnyKernel3-KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip
+          kernel_workspace/boot-KernelSU-${{ env.DEVICE }}-${{env.KSU_VERSION}}-${{ env.BUILD_TIME }}.img
+          kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo-KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
