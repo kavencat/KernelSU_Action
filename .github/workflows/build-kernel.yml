@@ -13,7 +13,7 @@ jobs:
       CCACHE_NOHASHDIR: "true"
       CCACHE_HARDLINK: "true"
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4.1.2
     - name: Prepare Configuration
       run: |
         CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
@@ -225,7 +225,7 @@ jobs:
 
     - name: Setup ccache
       if: env.ENABLE_CCACHE == 'true'
-      uses: hendrikmuhs/ccache-action@v1.2
+      uses: hendrikmuhs/ccache-action@v1.2.12
       with:
         key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
         max-size: 2G
@@ -317,28 +317,28 @@ jobs:
 
     - name: Upload ${{ env.KERNEL_IMAGE_NAME }}
       if: env.CHECK_FILE_IS_OK == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
 
     - name: Upload AnyKernel3
       if: env.CHECK_FILE_IS_OK == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: AnyKernel3${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
 
     - name: Upload DTBO image
       if: env.CHECK_DTBO_IS_OK == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: dtbo-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo.img
 
     - name: Upload boot image
       if: env.MAKE_BOOT_IMAGE_IS_OK == 'true'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.3.1
       with:
         name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/boot.img
