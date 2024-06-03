@@ -195,6 +195,9 @@ jobs:
         rm -rf KernelSU drivers/kernelsu
         curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s ${{ env.KERNELSU_TAG }}
         KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
+        cd KernelSU
+        git am -s $GITHUB_WORKSPACE/patches/0001-Revert-1.0-Drop-Non-GKI-Support-1483.patch
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV
         echo "KSU_VERSION=$KSU_VERSION" >> $GITHUB_ENV
 
