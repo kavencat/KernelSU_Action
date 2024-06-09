@@ -354,7 +354,7 @@ jobs:
         zip -q -r AnyKernel3-KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.zip *
 
     - name: Create Release and Upload Release Asset
-      uses: phuonghuynh/action-gh-release@master
+      uses: softprops/action-gh-release@v2.0.5
       if: startsWith(KernelSU-${{env.KSU_VERSION}}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}, 'refs/tags/')
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
