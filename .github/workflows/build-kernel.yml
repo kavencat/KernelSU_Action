@@ -316,7 +316,7 @@ jobs:
         tools/unpack_bootimg.py --boot_img boot-source.img
         cp android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }} out/kernel
         tools/mkbootimg.py ${{ env.FORMAT_MKBOOTING }} -o boot.img
-        cp boot.img boot-KernelSU-${{ env.DEVICE }}-${{ env.BUILD_TIME }}.img
+        cp boot.img boot-KernelSU-${{ env.DEVICE }}-${{env.KSU_VERSION}}-${{ env.BUILD_TIME }}.img
         if [ -f boot.img ]; then
             echo "MAKE_BOOT_IMAGE_IS_OK=true" >> $GITHUB_ENV
         else
